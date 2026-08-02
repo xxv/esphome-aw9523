@@ -11,7 +11,7 @@ namespace esphome
 
         void AW9523FloatOutputChannel::write_state(float state)
         {
-            const float duty_rounded = roundf(state * 0xff);
+            const float duty_rounded = roundf(state * this->scale_ * 0xff);
             auto duty = static_cast<uint8_t>(duty_rounded);
 
             this->parent_->set_pin_value(this->pin_, duty);
@@ -26,7 +26,7 @@ namespace esphome
                 this->max_current_ = this->parent_->get_max_current();
             }
 
-            this->max_power_ = this->max_current_ / this->parent_->get_max_current();
+            this->scale_ = this->max_current_ / this->parent_->get_max_current();
 
             this->parent_->led_driver(this->pin_);
             this->turn_off();

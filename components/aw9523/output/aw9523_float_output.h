@@ -26,6 +26,7 @@ namespace esphome
             AW9523Component *parent_;
             uint8_t pin_;
             float max_current_;
+            float scale_{1.0f};
         };
 
     } // namespace aw9523
